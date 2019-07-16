@@ -97,6 +97,22 @@ Note that on Macs the IP will be the IP of the Docker VM host.  This is accessib
 docker-machine ip <host>
 ```
 
+
+### Accessing the API when using Azure Container Instances (ACI):
+
+You will need to set your browser to proxy via the external public IP address or hostname of the container.
+
+You can then access the API by browsing to http://zap
+
+
+If you just try to browse to the hostname of the container Zap assumes that you are trying to proxy via it to that url, which is itself.
+
+You will then get an error like the following:
+
+	Failed to read http://<hostnameOfContainer>.uksouth.azurecontainer.io:8090/ within 20 seconds, 
+	check to see if the site is available and if so consider adjusting ZAP's read time out in the Connection options panel.
+
+
 ### Scanning an app running on the host OS
 
 IP addresses like localhost and 127.0.0.1 cannot be used to access an app running on the host OS from within a docker container.
