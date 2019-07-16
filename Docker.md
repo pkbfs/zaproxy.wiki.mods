@@ -73,6 +73,7 @@ Zapr is ruby script for ZAP which allows commandline active scanning for desired
 ```bash
 docker run -u zap -i owasp/zap2docker-stable zapr --debug --summary http://target
 ```
+
 ### Accessing the API from outside of the Docker container:
 
 Docker appears to assign 'random' IP addresses, so an approach that appears to work is:
@@ -111,6 +112,46 @@ You will then get an error like the following:
 
 	Failed to read http://<hostnameOfContainer>.uksouth.azurecontainer.io:8090/ within 20 seconds, 
 	check to see if the site is available and if so consider adjusting ZAP's read time out in the Connection options panel.
+
+### Exploring a owasp/zap2docker-stable container
+
+An easy way to run the container without immediately launching the zap daemon is to use the tail command.
+
+```bash
+    docker run -u zap -p 8080:8080 -i owasp/zap2docker-stable tail -f /dev/null
+```
+
+
+
+
+Rather than specify the command that should be executed when the container is started 
+
+docker run -it ......
+
+Entrypoint -- 
+
+### Using the same Root CA Certificate between docker instances
+
+Each time you issue the docker run command a new container is created from the image specified. This results in the zap daemon generating a new root certificate. In a test environment this would result in having to retrieve the public key certificate and install it on the machines that the test browsers are using.
+
+    zap.sh -daemon -certfulldump <directory>/CertificatePrivateAndPublic.pem
+
+
+
+
+    zap.sh -daemon -certload     wrk/ertificatePrivateAndPublic .... other params ....
+
+
+
+
+2. How to generate the private/public key certificate initially by running the daemon and then reusing it on subsequent runs of the zap2docker container. 
+	
+
+
+
+zap.sh -daemon 
+Each time 
+
 
 
 ### Scanning an app running on the host OS
