@@ -98,7 +98,7 @@ docker-machine ip <host>
 ```
 
 
-### Accessing the API when using Azure Container Instances (ACI):
+### Accessing the API when using Microsoft Azure Container Instances (ACI):
 
 You will need to set your browser to proxy via the external public IP address or hostname of the container.
 
