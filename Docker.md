@@ -130,16 +130,12 @@ docker run -it ......
 
 Entrypoint -- 
 
-### Using the same Root CA Certificate between docker instances
+### Using the same Root CA Certificate between docker container instances
 
 Each time you issue the docker run command a new container is created from the image specified. This results in the zap daemon generating a new root certificate. In a test environment this would result in having to retrieve the public key certificate and install it on the machines that the test browsers are using.
 
     zap.sh -daemon -certfulldump <directory>/CertificatePrivateAndPublic.pem
-
-
-
-
-    zap.sh -daemon -certload     wrk/ertificatePrivateAndPublic .... other params ....
+    zap.sh -daemon -certload     <directory>/CertificatePrivateAndPublic.pem .... other params ....
 
 
 
