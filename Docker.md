@@ -134,7 +134,7 @@ The automation libraries such as *zap-api-dotnet* work in the same manner. They 
 
 ## Using the same Root CA Certificate between docker container instances  
 
-Each time you issue the docker run command a new container is created from the image specified. This results in the zap daemon generating a new root certificate. In a test environment this would result in having to retrieve the public key certificate using the API and then install it on the machines that the test browsers are using.
+Each time you issue the docker run command a new container is created from the image specified. This results in the zap daemon generating a new root certificate. In a test environment this would result in having to retrieve the public key certificate using the API and then install it on the machines that the test browsers are using each time the container is run.
 
 By running the following command with the -certfulldump parameter you can save the auto generated certificate for future use. The <directory> would be a volume that you have mounted against the container.
 
