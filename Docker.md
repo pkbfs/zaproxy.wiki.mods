@@ -74,7 +74,25 @@ Zapr is ruby script for ZAP which allows commandline active scanning for desired
 docker run -u zap -i owasp/zap2docker-stable zapr --debug --summary http://target
 ```
 
-### Accessing the API from outside of the Docker container:
+
+## Accessing the API from outside of the Docker container
+
+To access the API when ZAP is running as a daemon inside a container you need to perform the following steps
+
+1. Obtain the external IP Address or hostname of the container
+2. Configure the proxy settings of your browser to point to that address
+3. Navigate to http://zap
+
+
+If you just try to browse to the hostname of the container, Zap assumes that you are trying to proxy via it to that url, which is itself.
+
+You will then get an error like the following appearing in the browser:
+
+	Failed to read http://ExternalIPAddressOrHostNameOfContainer:8090/ within 20 seconds, 
+	check to see if the site is available and if so consider adjusting ZAP's read time out in the Connection options panel.
+
+
+#### 1. Obtain the IP Address or Hostname
 
 Docker appears to assign 'random' IP addresses, so an approach that appears to work is:
 
@@ -98,20 +116,35 @@ Note that on Macs the IP will be the IP of the Docker VM host.  This is accessib
 docker-machine ip <host>
 ```
 
+#### 2. Configure the proxy settings
 
-### Accessing the API when using Microsoft Azure Container Instances (ACI):
+There are various ways to configure a browsers proxy settings.
 
-You will need to set your browser to proxy via the external public IP address or hostname of the container.
+Both Chrome and Firefox have addons that allow you to easily switch settings on the fly without interferring with your operating system settings.
 
-You can then access the API by browsing to http://zap
+#### 3. Navigate to http://zap from your browser
+
+You should then be presented with the Welcome page and a link named 'Local API'
+ 
+ 
+#### Using the API Automation Libraries
+
+The automation libraries such as *zap-api-dotnet* work in the same manner. They proxy to external IP Address or hostname of the container and then interact with the API by using **http://zap** as the base address.
 
 
-If you just try to browse to the hostname of the container Zap assumes that you are trying to proxy via it to that url, which is itself.
+### Using the same Root CA Certificate between docker container instances  
 
-You will then get an error like the following:
+Each time you issue the docker run command a new container is created from the image specified. This results in the zap daemon generating a new root certificate. In a test environment this would result in having to retrieve the public key certificate using the API and then install it on the machines that the test browsers are using.
 
-	Failed to read http://<hostnameOfContainer>.uksouth.azurecontainer.io:8090/ within 20 seconds, 
-	check to see if the site is available and if so consider adjusting ZAP's read time out in the Connection options panel.
+By running the following command with the -certfulldump parameter you can save the auto generated certificate for future use. The <directory> would be a volume that you have mounted against the container.
+
+    zap.sh -daemon -certfulldump <directory>/CertificatePrivateAndPublic.pem
+
+Then on subsequent runs of the container you specify the previously generated certificate with the -certload parameter.
+
+    zap.sh -daemon -certload <directory>/CertificatePrivateAndPublic.pem .... other parameters ....
+
+To access the public key certificate just run the zap UI and starting from the meny navigate to the Tools -> Options -> Dynamic SSL Certificates option. Click the Import button and select the CertificatePrivateAndPublic.pem file. Then click the save button to save the certificate which contains just the public key. This certificate can then be installed on your test machines.
 
 ### Exploring a owasp/zap2docker-stable container
 
@@ -129,24 +162,6 @@ Rather than specify the command that should be executed when the container is st
 docker run -it ......
 
 Entrypoint -- 
-
-### Using the same Root CA Certificate between docker container instances  
-
-Each time you issue the docker run command a new container is created from the image specified. This results in the zap daemon generating a new root certificate. In a test environment this would result in having to retrieve the public key certificate and install it on the machines that the test browsers are using.
-
-    zap.sh -daemon -certfulldump <directory>/CertificatePrivateAndPublic.pem
-    zap.sh -daemon -certload     <directory>/CertificatePrivateAndPublic.pem .... other params ....
-
-
-
-
-2. How to generate the private/public key certificate initially by running the daemon and then reusing it on subsequent runs of the zap2docker container. 
-	
-
-
-
-zap.sh -daemon 
-Each time 
 
 
 
