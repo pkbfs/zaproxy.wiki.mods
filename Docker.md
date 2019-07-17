@@ -109,7 +109,6 @@ Find out which address has been assigned to it:
 ```bash
 docker inspect <CONTAINER ID> | grep IPAddress
 ```
-You should be then able to point your browser at the specified host/port and access the ZAP API, eg http://172.17.0.8:8090/
 
 Note that on Macs the IP will be the IP of the Docker VM host.  This is accessible with:  
 ```bash
@@ -121,6 +120,12 @@ docker-machine ip <host>
 There are various ways to configure a browsers proxy settings.
 
 Both Chrome and Firefox have addons that allow you to easily switch settings on the fly without interferring with your operating system settings.
+
+You will need to configure the proxy as a combination of the
+
+IP Address or Hostname from the previous step
+Port that you configured the daemon to listen on - *8090* in the examples above
+
 
 #### 3. Navigate to http://zap from your browser
 
