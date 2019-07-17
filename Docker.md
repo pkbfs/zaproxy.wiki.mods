@@ -124,6 +124,7 @@ Both Chrome and Firefox have addons that allow you to easily switch settings on 
 You will need to configure the proxy as a combination of the
 
 IP Address or Hostname from the previous step
+
 Port that you configured the daemon to listen on - *8090* in the examples above
 
 
