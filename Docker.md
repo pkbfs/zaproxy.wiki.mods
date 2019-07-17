@@ -136,7 +136,7 @@ The automation libraries such as *zap-api-dotnet* work in the same manner. They 
 
 Each time you issue the docker run command a new container is created from the image specified. This results in the zap daemon generating a new root certificate. In a test environment this would result in having to retrieve the public key certificate using the API and then install it on the machines that the test browsers are using each time the container is run.
 
-By running the following command with the -certfulldump parameter you can save the auto generated certificate for future use. The <directory> would be a volume that you have mounted against the container.
+By running the following command with the -certfulldump parameter you can save the auto generated certificate for future use. The \<directory\> would be a volume that you have mounted against the container.
 
     zap.sh -daemon -certfulldump <directory>/CertificatePrivateAndPublic.pem
 
@@ -144,7 +144,7 @@ Then on subsequent runs of the container you specify the previously generated ce
 
     zap.sh -daemon -certload <directory>/CertificatePrivateAndPublic.pem .... other parameters ....
 
-To access the public key certificate just run the zap UI and starting from the meny navigate to the Tools -> Options -> Dynamic SSL Certificates option. Click the Import button and select the CertificatePrivateAndPublic.pem file. Then click the save button to save the certificate which contains just the public key. This certificate can then be installed on your test machines.
+To access the public key certificate just run the zap UI and starting from the menu navigate to the Tools -> Options -> Dynamic SSL Certificates option. Click the Import button and select the CertificatePrivateAndPublic.pem file. Then click the save button to save the certificate which contains just the public key. This certificate can then be installed on your test machines for use with the browsers.
 
 ### Exploring a owasp/zap2docker-stable container
 
