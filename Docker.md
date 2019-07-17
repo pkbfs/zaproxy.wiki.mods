@@ -126,13 +126,13 @@ Both Chrome and Firefox have addons that allow you to easily switch settings on 
 
 You should then be presented with the Welcome page and a link named 'Local API'
  
- 
+
 #### Using the API Automation Libraries
 
 The automation libraries such as *zap-api-dotnet* work in the same manner. They proxy to external IP Address or hostname of the container and then interact with the API by using **http://zap** as the base address.
 
 
-### Using the same Root CA Certificate between docker container instances  
+## Using the same Root CA Certificate between docker container instances  
 
 Each time you issue the docker run command a new container is created from the image specified. This results in the zap daemon generating a new root certificate. In a test environment this would result in having to retrieve the public key certificate using the API and then install it on the machines that the test browsers are using.
 
