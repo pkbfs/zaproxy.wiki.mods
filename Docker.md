@@ -146,26 +146,7 @@ Then on subsequent runs of the container you specify the previously generated ce
 
 To access the public key certificate just run the zap UI and starting from the menu navigate to the Tools -> Options -> Dynamic SSL Certificates option. Click the Import button and select the CertificatePrivateAndPublic.pem file. Then click the save button to save the certificate which contains just the public key. This certificate can then be installed on your test machines for use with the browsers.
 
-### Exploring a owasp/zap2docker-stable container
-
-An easy way to run the container without immediately launching the zap daemon is to use the tail command.
-
-```bash
-    docker run -u zap -p 8080:8080 -i owasp/zap2docker-stable tail -f /dev/null
-```
-
-
-
-
-Rather than specify the command that should be executed when the container is started 
-
-docker run -it ......
-
-Entrypoint -- 
-
-
-
-### Scanning an app running on the host OS
+## Scanning an app running on the host OS
 
 IP addresses like localhost and 127.0.0.1 cannot be used to access an app running on the host OS from within a docker container.
 To get around this you can use the following code to get an IP address that will work:
